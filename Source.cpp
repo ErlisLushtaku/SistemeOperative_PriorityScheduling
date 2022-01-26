@@ -28,12 +28,13 @@ vector<vector<int>> fillVector(vector<vector<int>> vec, int n) {
 }
 
 vector<vector<int>> orderVector(vector<vector<int>> vec) {
+	
 	vector<vector<int>> sorted;
 
 	for (int time = 0; !vec.empty(); time++) {
 
+		// Gjejme indeksin e procesit te pare qe eshte ne ready queue
 		int current;
-
 		for (current = 0; vec[current][2] > time; current++) {
 			if (current == vec.size() - 1) {
 				time++;
@@ -41,6 +42,7 @@ vector<vector<int>> orderVector(vector<vector<int>> vec) {
 			}
 		}
 
+		// Krahasojme me proceset tjera dhe gjejme procesin me prioritet me te larte
 		for (int i = 0; i < vec.size(); i++) {
 			if (vec[i][2] > time)
 				continue;
@@ -50,13 +52,14 @@ vector<vector<int>> orderVector(vector<vector<int>> vec) {
 			}
 		}
 
-		vec[current][0] = vec[current][0] - 1;
-
+		// Vendosim ne vektorin sorted indeksin e procesit te zgjedhur dhe kohen e tanishme
 		vector<int> v;
 		v.push_back(vec[current][3]);
 		v.push_back(time);
 		sorted.push_back(v);
 
+		// Dekrementojme BurstTime te procesit te zgjedhur dhe shqyrtojme a behet 0
+		vec[current][0]--;
 		if (vec[current][0] == 0) {
 			vec.erase(vec.begin() + current);
 		}
