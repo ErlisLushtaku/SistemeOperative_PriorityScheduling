@@ -5,7 +5,7 @@
 #include <utility>
 using namespace std;
 
-vector<vector<int>> fillArray(vector<vector<int>> vec, int n) {
+vector<vector<int>> fillVector(vector<vector<int>> vec, int n) {
 	printf("Enter burst time, priority and arrival time for each process.\n");
 	printf("|Process|B|P|A| \n");
 
@@ -27,7 +27,7 @@ vector<vector<int>> fillArray(vector<vector<int>> vec, int n) {
 	return vec;
 }
 
-vector<vector<int>> orderArray(vector<vector<int>> vec) {
+vector<vector<int>> orderVector(vector<vector<int>> vec) {
 	vector<vector<int>> sorted;
 
 	for (int time = 0; !vec.empty(); time++) {
@@ -65,7 +65,7 @@ vector<vector<int>> orderArray(vector<vector<int>> vec) {
 	return sorted;
 }
 
-void printArray(vector<vector<int>> vec, vector<vector<int>> sorted) {
+void printVector(vector<vector<int>> vec, vector<vector<int>> sorted) {
 	printf("Ordered processes based on priority(BT - Burst Time, WT - Waiting Time, RT - Response Time, TT - Turnaround Time): \n");
 	printf("| Time | Process | BT | WT | RT | TT | \n");
 
@@ -117,11 +117,11 @@ int main()
 	printf("Enter the number of processes: ");
 	cin >> n;
 
-	vector<vector<int>> vec = fillArray(vec, n);
+	vector<vector<int>> vec = fillVector(vec, n);
 
-	vector<vector<int>> sorted = orderArray(vec);
+	vector<vector<int>> sorted = orderVector(vec);
 
-	printArray(vec, sorted);
+	printVector(vec, sorted);
 
 	return 0;
 }
