@@ -71,7 +71,6 @@ vector<vector<int>> orderVector(vector<vector<int>> vec) {
 void printVector(vector<vector<int>> vec, vector<vector<int>> sorted) {
 	printf("Ordered processes based on priority(BT - Burst Time, WT - Waiting Time, RT - Response Time, TT - Turnaround Time): \n");
 	printf("| Time | Process | BT | WT | RT | TT | \n");
-
 	vector<vector<int>> BTs = vec;
 	map<int, pair<int, bool>> infos; // index, RT, iPari
 	int BT, WT, RT, TT, AT;
@@ -109,7 +108,6 @@ void printVector(vector<vector<int>> vec, vector<vector<int>> sorted) {
 			printf("|   %2d |      %2d | %2d |    |    |    | \n", time, index, BT);
 		}
 	}
-
 	return;
 }
 
