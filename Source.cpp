@@ -117,15 +117,11 @@ int main()
 	printf("Enter the number of processes: ");
 	cin >> n;
 
-	//int** arr = dynamicArray(n);
-
 	vector<vector<int>> vec = fillArray(vec, n);
 
 	vector<vector<int>> sorted = orderArray(vec);
 
 	printArray(vec, sorted);
-
-	//freeResources(arr, n);
 
 	return 0;
 }
