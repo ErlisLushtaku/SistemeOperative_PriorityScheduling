@@ -1,28 +1,9 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
-#include <queue>
+#include <map>
+#include <utility>
 using namespace std;
-
-//int** dynamicArray(int n) {
-//	int** arr = new int* [n];
-//	// Check if the memory has been successfully
-//	// allocated by malloc or not
-//	if (arr == NULL) {
-//		printf("Memory not allocated.\n");
-//		exit(0);
-//	}
-//
-//	for (int i = 0; i < n; i++) {
-//		arr[i] = new int[3];
-//		if (arr[i] == NULL) {
-//			printf("Memory not allocated.\n");
-//			exit(0);
-//		}
-//	}
-//
-//	return arr;
-//}
 
 vector<vector<int>> fillArray(vector<vector<int>> vec, int n) {
 	printf("Enter burst time, priority and arrival time for each process.\n");
@@ -31,10 +12,10 @@ vector<vector<int>> fillArray(vector<vector<int>> vec, int n) {
 	for (int i = 0; i < n; i++)
 	{
 		printf("      %2d ", i);
-		int a;
 		vector<int> v;
 		for (int j = 0; j < 3; j++)
 		{
+			int a;
 			cin >> a;
 			v.push_back(a);
 		}
@@ -88,32 +69,46 @@ void printArray(vector<vector<int>> vec, vector<vector<int>> sorted) {
 	printf("Ordered processes based on priority(BT - Burst Time, WT - Waiting Time, RT - Response Time, TT - Turnaround Time): \n");
 	printf("| Time | Process | BT | WT | RT | TT | \n");
 
-	int BT, WT, RT, TT;
+	vector<vector<int>> BTs = vec;
+	map<int, pair<int, bool>> infos; // index, RT, iPari
+	int BT, WT, RT, TT, AT;
+
 	for (int i = 0; i < sorted.size(); i++)
 	{
 		int index = sorted[i][0];
+		int time = sorted[i][1];
+
 		vec[index][0]--;
 		BT = vec[index][0];
-		WT = 0;
-		/*for (int j = 0; j < i; j++) {
-			WT += vec[sorted[j]][0];
-		}*/
-		RT = WT;
-		TT = BT + WT;
+		AT = vec[index][2];
 
-		printf("|   %2d |      %2d | %2d | %2d | %2d | %2d | \n", sorted[i][1], sorted[i][0], BT, WT, RT, TT);
+		if (infos[index].second == false) {
+			RT = time - AT;
+			infos[index].first = RT;
+			infos[index].second = true;
+		}
+
+		bool iFundit = true;
+		for (int j = i + 1; j < sorted.size(); j++) {
+			if (index == sorted[j][0]) {
+				iFundit = false;
+				break;
+			}
+		}
+
+		if (iFundit) {
+			TT = time + 1 - AT;
+			WT = TT - BTs[index][0];
+			RT = infos[index].first;
+			printf("|   %2d |      %2d | %2d | %2d | %2d | %2d | \n", sorted[i][1], sorted[i][0], BT, WT, RT, TT);
+		}
+		else {
+			printf("|   %2d |      %2d | %2d |    |    |    | \n", sorted[i][1], sorted[i][0], BT);
+		}
 	}
 
 	return;
 }
-
-//void freeResources(int** arr, int n) {
-//	for (int i = 0; i < n; i++)
-//		free(arr[i]);
-//	free(arr);
-//
-//	return;
-//}
 
 int main()
 {
