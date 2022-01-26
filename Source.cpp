@@ -100,10 +100,10 @@ void printArray(vector<vector<int>> vec, vector<vector<int>> sorted) {
 			TT = time + 1 - AT;
 			WT = TT - BTs[index][0];
 			RT = infos[index].first;
-			printf("|   %2d |      %2d | %2d | %2d | %2d | %2d | \n", sorted[i][1], sorted[i][0], BT, WT, RT, TT);
+			printf("|   %2d |      %2d | %2d | %2d | %2d | %2d | \n", time, index, BT, WT, RT, TT);
 		}
 		else {
-			printf("|   %2d |      %2d | %2d |    |    |    | \n", sorted[i][1], sorted[i][0], BT);
+			printf("|   %2d |      %2d | %2d |    |    |    | \n", time, index, BT);
 		}
 	}
 
@@ -117,15 +117,11 @@ int main()
 	printf("Enter the number of processes: ");
 	cin >> n;
 
-	//int** arr = dynamicArray(n);
-
 	vector<vector<int>> vec = fillArray(vec, n);
 
 	vector<vector<int>> sorted = orderArray(vec);
 
 	printArray(vec, sorted);
-
-	//freeResources(arr, n);
 
 	return 0;
 }
